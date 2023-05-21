@@ -20,10 +20,10 @@ if((typeof port == 'undefined') || (port === null)) {
 let file = new static.Server(directory);
 
 let app = http.createServer (
-    function(request, response) {
+    function(request,response) {
         request.addListener('end',
             function(){
-                file.serve(request, response);
+                file.serve(request,response);
             }
         ).resume();
     }
@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
     //output a log message on the server and send it to the clients
 
     function serverLog(...messages) {
-        io.emit('log', ['**** Message from the server:\n']);
+        io.emit('log',['**** Message from the server:\n']);
         messages.forEach((item) => {
             io.emit('log',['****\t'+item]);
             console.log(item);
@@ -53,6 +53,6 @@ io.on('connection', (socket) => {
     serverLog('a page connected to the server: '+socket.id);
 
     socket.on('disconnect', () => {
-        console.log('a page disconnected from the server: '+socket.id);
+        serverLog('a page disconnected from the server: '+socket.id);
     });
 });
