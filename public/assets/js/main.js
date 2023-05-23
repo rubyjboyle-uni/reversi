@@ -25,7 +25,7 @@ if ((typeof chatRoom == 'undefined') || (chatRoom === null) || (chatRoom === 'nu
 //set up the socket.io connection to the server
 let socket = io();
 socket.on('log',function(array){
-    console.log.apply(console,array);
+    console.log.apply(console, array);
 });
 
 function makeInviteButton() {
@@ -45,7 +45,6 @@ socket.on('join_room_response', (payload) => {
     }
 
     //if we are being notified about ourselves then ignore the message and return
-
     if (payload.socket_id === socket.id) {
         return;
     }
@@ -81,10 +80,8 @@ socket.on('join_room_response', (payload) => {
     $("#players").append(nodeA);
     nodeA.show("fade", 1000);
 
-
-
     //announcing in the chat that someone has arrived
-    let newHTML = '<p class=\'join_room_response\'>'+ payload.username +' joined the '+ payload.room +'. (there are '+payload.count+' users in this room)</p>';
+    let newHTML = '<p class=\'join_room_response\'>' + payload.username + ' joined the ' + payload.room + '. (there are '+ payload.count + ' users in this room)</p>';
     let newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);
@@ -99,6 +96,15 @@ socket.on('player_disconnected', (payload) => {
         return;
     }
 
+    if(payload.socket_id === socket.id) {
+        return;
+    }
+
+    let domElements = $('.socket_' + payload.socket_id);
+    if(domElements.length !== 0) {
+        domElements.hide("fade", 500);
+    }
+
     let newHTML = '<p class=\'left_room_response\'>'+ payload.username +' left the '+ payload.room +'. (there are '+ payload.count +' users in this room)</p>';
     let newNode = $(newHTML);
     newNode.hide();
@@ -111,7 +117,7 @@ function sendChatMessage() {
     request.room = chatRoom;
     request.username = username;
     request.message = $('#chatMessage').val();
-    console.log('**** Client log message, sending \'send_chat_message\' command: ' +JSON.stringify(request));
+    console.log('**** Client log message, sending \'send_chat_message\' command: ' + JSON.stringify(request));
     socket.emit('send_chat_message', request);
     $('#chatMessage').val("");
 }
