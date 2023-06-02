@@ -31,6 +31,7 @@ socket.on('log',function(array){
 function makeInviteButton() {
     let newHTML = "<button type='button' class='btn btn-outline-primary'>Invite</button>";
     let newNode = $(newHTML);
+    console.log("new button made!");
     return newNode;
 }
 
@@ -39,18 +40,23 @@ socket.on('join_room_response', (payload) => {
         console.log('Server did not send a payload');
         return;
     }
+
     if(payload.result === 'fail') {
         console.log(payload.message);
+        console.log("This payload FAILS");
         return;
     }
 
     //if we are being notified about ourselves then ignore the message and return
     if (payload.socket_id === socket.id) {
+        console.log("im checking for myself!!!!");
         return;
     }
 
+    //if we already have the player in the room wont do anything either
     let domElements = $('.socket_' + payload.socket_id);
     if (domElements.length !== 0) {
+        console.log("Player already there!!!");
         return;
     }
 
@@ -65,13 +71,14 @@ socket.on('join_room_response', (payload) => {
     nodeB.addClass("col");
     nodeB.addClass("text-end");
     nodeB.addClass("socket_" + payload.socket_id);
-    nodeB.append('<h4>' + payload.username + '<h4>');
+    nodeB.append('<h4>' + payload.username + '</h4>');
 
     let nodeC = $("<div></div>");
     nodeC.addClass("col");
     nodeC.addClass("text-start");
     nodeC.addClass("socket_" + payload.socket_id);
     let buttonC = makeInviteButton();
+    console.log("Should have made the invite button here");
     nodeC.append(buttonC);
 
     nodeA.append(nodeB);
@@ -140,7 +147,7 @@ socket.on('send_chat_message_response', (payload) => {
 })
 
 
-//request to join the chartroom
+//request to join the chatroom
 $(() => {
     let request = {};
     request.room = chatRoom;
