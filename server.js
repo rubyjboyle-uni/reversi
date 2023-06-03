@@ -31,9 +31,6 @@ let app = http.createServer (
 
 console.log('The server is running');
 
-
-
-
 //Setting up the web socket server
 //Set up a registry of player information and their socket ids
 
@@ -119,8 +116,8 @@ io.on('connection', (socket) => {
                 response = {};
                 response.result = 'fail';
                 response.message = 'Server internal error joining chat room';
-                socket.emit('join_room_response',response);
-                serverLog('join_room command failed'. JSON.stringify(response));
+                socket.emit('join_room_response', response);
+                serverLog('join_room command failed', JSON.stringify(response));
             } else {
                 players[socket.id] = {
                     username: username,
@@ -141,6 +138,86 @@ io.on('connection', (socket) => {
                     io.of('/').to(room).emit('join_room_response',response);
                     serverLog('join_room succeeded ', JSON.stringify(response));
                 }
+            }
+        });
+    });
+
+//invite payload
+
+    socket.on('invite', (payload) => {
+        serverLog('Server received a command','\'invite\'', JSON.stringify(payload));
+        //check that the data coming from the client is good
+        if ((typeof payload == 'undefined') || (payload === null)) {
+            response = {};
+            response.result = 'fail';
+            response.message = 'client did not send a payload';
+            socket.emit('invite_response', response);
+            serverLog('invite command failed', JSON.stringify(response));
+            return;
+        }
+
+        let requested_user = payload.requested_user;
+        let room = players[socket.id].room;
+        let username = players[socket.id].username;
+
+        if ((typeof requested_user == 'undefined') || (requested_user === null) || (requested_user === "")) {
+            response = {
+                result: 'fail',
+                message: 'client did not request a valid user to invite to play'
+            };
+           
+            socket.emit('invite_response', response);
+            serverLog('invite command failed', JSON.stringify(response));
+            return;
+        }
+
+        if ((typeof room == 'undefined') || (room === null) || (room === "")) {
+            response = {
+                result: 'fail',
+                message: 'the user that was invited is not in a room'
+            };
+           
+            socket.emit('invite_response', response);
+            serverLog('invite command failed', JSON.stringify(response));
+            return;
+        }
+
+        if ((typeof username == 'undefined') || (username === null) || (username === "")) {
+            response = {
+                result: 'fail',
+                message: 'the user that was invited does not have a name registered'
+            };
+            socket.emit('invite_response', response);
+            serverLog('invite command failed', JSON.stringify(response));
+            return;
+        }
+
+        //make sure invite player present
+        io.in(room).allSockets().then((sockets) => {
+            //invitee not in room
+            if ((typeof sockets == 'undefined') || (sockets === null) || !sockets.has(requested_user)) {
+                response = {
+                    result: 'fail',
+                    message: 'the user that was invited is no longer in the room'
+
+                };
+                socket.emit('invite_response', response);
+                serverLog('invite command failed', JSON.stringify(response));
+            } else { //invitee is in the room
+              
+                response = {
+                    result: 'success',
+                    socket_id: requested_user
+                }
+                socket.emit("invite_response", response);
+
+                response = {
+                    result: 'success',
+                    socket_id: socket.id
+                }
+                socket.to(requested_user).emit("invited", response);
+                serverLog('invite command succeeded', JSON.stringify(response));
+
             }
         });
     });
