@@ -269,9 +269,9 @@ socket.on('game_update', (payload) => {
 
     //update my color
     if (socket.id === payload.game.player_white.socket) {
-        my_color = 'white';
+        my_color = 'yellow';
     } else if (socket.id === payload.game.player_black.socket) {
-        my_color = 'black';
+        my_color = 'blue';
     } else {
         window.location.href = 'lobby.html?username=' + username;
         return;

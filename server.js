@@ -385,7 +385,7 @@ io.on('connection', (socket) => {
             let room = players[socket.id].room;
             delete players[socket.id];
             //tell everyone who left
-            io.of("/").to(room).emit('player_disconnected',payload);
+            io.of("/").to(room).emit('player_disconnected', payload);
             serverLog('player_disconnected succeeded ', JSON.stringify(payload));
         }
 
