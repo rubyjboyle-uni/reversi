@@ -3,6 +3,7 @@ body {
 }
 .headerrow {
     background-color: darkseagreen;
+    border-radius: 25px;
 }
 .join_room_response,
 .left_room_response {
@@ -15,6 +16,7 @@ body {
 }
 #messagePane {
     background-color: lightblue;
+    border-radius: 5px;
 }
 
 table#game_board {
