@@ -277,7 +277,23 @@ socket.on('game_update', (payload) => {
         return;
     }
 
-    $("#my_color").html('<h3 id="my_color">I am ' + my_color + '</h3>');
+    if(my_color === 'white') {
+        $("#my_color").html('<h3 id="my_color">I am yellow anteater.</h3>');
+    } else if (my_color === 'black') {
+        $("#my_color").html('<h3 id="my_color">I am blue anteater.</h3>');
+    } else {
+        $("#my_color").html('<h3 id="my_color">Error: Unknown color</h3>');
+    }
+
+
+    if(payload.game.whose_turn === 'white') {
+        $("#my_color").append('<h4>It is yellow anteater\'s turn.</h4>');
+    } else if (payload.game.whose_turn === 'black') {
+        $("#my_color").append('<h4>It is blue anteater\'s turn.</h4>');
+    } else {
+        $("#my_color").append('<h4>Error: Don\'t know whose turn it is.</h4>');
+    }
+
 
 
     let whitesum = 0;
@@ -370,6 +386,7 @@ socket.on('play_token_response', (payload) => {
     }
     if(payload.result === 'fail') {
         console.log(payload.message);
+        alert(payload.message);
         return;
     }
 })

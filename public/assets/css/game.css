@@ -17,6 +17,7 @@ body {
 #messagePane {
     background-color: lightblue;
     border-radius: 5px;
+    padding: 15px;
 }
 
 table#game_board {
@@ -29,8 +30,14 @@ table#game_board td{
     border: 1px solid black;
     margin: 0px;
     padding: 0px;
+    background-color: mistyrose;
 }
 
 td.hovered_over:hover {
     background-image: url('/assets/images/hover.gif');
+}
+
+#messages {
+    padding: 5px;
+    border-radius: 5px;
 }
