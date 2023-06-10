@@ -811,7 +811,6 @@ function send_game_update(socket, game_id, message) {
                     console.log("White is assigned to: " + second);
                     games[game_id].player_white.socket = second;
                     games[game_id].player_white.username = players[second].username;
-
                 } else if (games[game_id].player_black.socket === "") {
                     //this play should be black
                     console.log("Black is assigned to: " + second);
