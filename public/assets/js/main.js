@@ -295,8 +295,6 @@ socket.on('game_update', (payload) => {
         $("#my_color").append('<h4>Error: Don\'t know whose turn it is.</h4>');
     }
 
-
-
     let whitesum = 0;
     let blacksum = 0;
 
@@ -394,9 +392,6 @@ socket.on('game_update', (payload) => {
         })
     })(payload.game.last_move_time)
         , 1000);
-
-
-
 
     $("#whitesum").html(whitesum);
     $("#blacksum").html(blacksum);
