@@ -1,9 +1,10 @@
 body {
-    background-color: rgb(217, 226, 237);
+    background-color: #A0D4E4;
 }
-.headerrow {
-    background-color: darkseagreen;
-    border-radius: 25px;
+#gameTitle {
+    font-family: 'Bagel Fat One', cursive;
+    margin: 20px;
+    font-size: 60px;
 }
 .join_room_response,
 .left_room_response {
@@ -22,6 +23,7 @@ body {
 
 table#game_board {
     border: 4px solid black;
+    border-radius: 10px;
     margin: 0px;
     padding: 0px;
 }
@@ -30,7 +32,7 @@ table#game_board td{
     border: 1px solid black;
     margin: 0px;
     padding: 0px;
-    background-color: mistyrose;
+    background-color:#d9ecf2;
 }
 
 td.hovered_over:hover {
