@@ -279,18 +279,18 @@ socket.on('game_update', (payload) => {
     }
 
     if(my_color === 'white') {
-        $("#my_color").html('<h3 id="my_color">I am yellow anteater.</h3>');
+        $("#my_color").html('<h3 id="my_color">I am the moon.</h3>');
     } else if (my_color === 'black') {
-        $("#my_color").html('<h3 id="my_color">I am blue anteater.</h3>');
+        $("#my_color").html('<h3 id="my_color">I am the sun.</h3>');
     } else {
         $("#my_color").html('<h3 id="my_color">Error: Unknown color</h3>');
     }
 
 
     if(payload.game.whose_turn === 'white') {
-        $("#my_color").append('<h4>It is yellow anteater\'s turn.</h4>');
+        $("#my_color").append('<h4>It is the moons\'s turn.</h4>');
     } else if (payload.game.whose_turn === 'black') {
-        $("#my_color").append('<h4>It is blue anteater\'s turn.</h4>');
+        $("#my_color").append('<h4>It is the sun\'s turn.</h4>');
     } else {
         $("#my_color").append('<h4>Error: Don\'t know whose turn it is.</h4>');
     }
@@ -315,16 +315,16 @@ socket.on('game_update', (payload) => {
                     graphic = "empty.gif";
                     altTag = "empty space";
                 } else if ((old_board[row][column] === '?') && (board[row][column] === 'w')){
-                    graphic = "empty_to_white.gif";
+                    graphic = "white.gif";
                     altTag = "white token";
                 } else if ((old_board[row][column] === '?') && (board[row][column] === 'b')){
-                    graphic = "empty_to_black.gif";
+                    graphic = "black.gif";
                     altTag = "black token";
                 } else if ((old_board[row][column] === ' ') && (board[row][column] === 'w')){
-                    graphic = "empty_to_white.gif";
+                    graphic = "white.gif";
                     altTag = "white token";
                 } else if ((old_board[row][column] === ' ') && (board[row][column] === 'b')){
-                    graphic = "empty_to_black.gif";
+                    graphic = "black.gif";
                     altTag = "black token";
                 } else if ((old_board[row][column] === 'w') && (board[row][column] === ' ')){
                     graphic = "white_to_empty.gif";
@@ -425,9 +425,9 @@ socket.on('game_over', (payload) => {
 
     //announce with a button to the lobby
     let nodeA = $("<div id='game_over'></div>");
-    let nodeB = $("<h1>Game Over</h1>");
+    let nodeB = $("<h1>game over</h1>");
     let nodeC = $("<h2>" + payload.who_won + " won!</h2>");
-    let nodeD = $("<a href='lobby.html?username=" + username + "' class='btn btn-lg btn-success' role='button'>Return to lobby</a>");
+    let nodeD = $("<a href='lobby.html?username=" + username + "' class='btn btn-lg btn-success' role='button'>return to lobby</a>");
     nodeA.append(nodeB);
     nodeA.append(nodeC);
     nodeA.append(nodeD);
