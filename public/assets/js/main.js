@@ -29,7 +29,7 @@ socket.on('log',function(array){
 });
 
 function makeInviteButton(socket_id) {
-    let newHTML = "<button type='button' class='btn btn-outline-primary'>Invite</button>";
+    let newHTML = "<button type='button' class='btn button-invite'>invite</button>";
     let newNode = $(newHTML);
     newNode.click( () => {
         let payload = {
@@ -44,7 +44,7 @@ function makeInviteButton(socket_id) {
 //creating buttons
 
 function makeInvitedButton(socket_id) {
-    let newHTML = "<button type='button' class='btn btn-primary'>Invited</button>";
+    let newHTML = "<button type='button' class='btn btn-primary'>invited</button>";
     let newNode = $(newHTML);
     newNode.click( () => {
         let payload = {
@@ -180,7 +180,7 @@ socket.on('join_room_response', (payload) => {
     nodeA.show("fade", 1000);
 
     //announcing in the chat that someone has arrived
-    let newHTML = '<p class=\'join_room_response\'>' + payload.username + ' joined the chat room. (there are '+ payload.count + ' users in this room)</p>';
+    let newHTML = '<p class=\'join_room_response\'>' + payload.username + ' joined the chat room. '+ payload.count + ' users total.</p>';
     let newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);
@@ -204,7 +204,7 @@ socket.on('player_disconnected', (payload) => {
         domElements.hide("fade", 500);
     }
 
-    let newHTML = '<p class=\'left_room_response\'>'+ payload.username +' left the chatroom. (There are '+ payload.count +' users in this room)</p>';
+    let newHTML = '<p class=\'left_room_response\'>'+ payload.username +' left the chatroom. '+ payload.count +' users total. </p>';
     let newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);
@@ -279,20 +279,20 @@ socket.on('game_update', (payload) => {
     }
 
     if(my_color === 'white') {
-        $("#my_color").html('<h3 id="my_color">I am the moon.</h3>');
+        $("#my_color").html('<p id="my_color">I am the moon.</p>');
     } else if (my_color === 'black') {
-        $("#my_color").html('<h3 id="my_color">I am the sun.</h3>');
+        $("#my_color").html('<p id="my_color">I am the sun.</p>');
     } else {
-        $("#my_color").html('<h3 id="my_color">Error: Unknown color</h3>');
+        $("#my_color").html('<p id="my_color">Error: Unknown color</p>');
     }
 
 
     if(payload.game.whose_turn === 'white') {
-        $("#my_color").append('<h4>It is the moons\'s turn.</h4>');
+        $("#my_color").append('<p>It is the moons\'s turn.</p>');
     } else if (payload.game.whose_turn === 'black') {
-        $("#my_color").append('<h4>It is the sun\'s turn.</h4>');
+        $("#my_color").append('<p>It is the sun\'s turn.</p>');
     } else {
-        $("#my_color").append('<h4>Error: Don\'t know whose turn it is.</h4>');
+        $("#my_color").append('<p>Error: Don\'t know whose turn it is.</p>');
     }
 
     let whitesum = 0;

@@ -3,9 +3,14 @@ body {
 }
 #gameTitle {
     font-family: 'Bagel Fat One', cursive;
-    margin: 20px;
+    margin-top: 10px;
     font-size: 60px;
 }
+.header-subtitle {
+    font-family: 'Dosis', sans-serif;
+    margin-bottom: 10px;
+}
+
 .join_room_response,
 .left_room_response {
     background-color: cornsilk;
@@ -19,10 +24,11 @@ body {
     background-color: lightblue;
     border-radius: 5px;
     padding: 15px;
+    font-family: 'Dosis', sans-serif;
 }
 
 table#game_board {
-    border: 4px solid black;
+    border: 1px solid black;
     border-radius: 10px;
     margin: 0px;
     padding: 0px;
@@ -42,4 +48,38 @@ td.hovered_over:hover {
 #messages {
     padding: 5px;
     border-radius: 5px;
+    font-family: 'Dosis', sans-serif;
+}
+
+.progress {
+    margin-bottom: 20px;
+}
+
+.image-small {
+    max-width: 40px;
+}
+
+.player-details {
+    background-color: #043F56;
+    color: #ffffff;
+    border-radius: 10px;
+    font-family: 'Dosis', sans-serif;
+    margin: 10px;
+    padding: 10px;
+}
+
+.player-scorecard {
+    font-family: 'Dosis', sans-serif;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.player-title {
+    font-weight: bold;
+}
+.button-messages {
+    background-color: #043F56;
+    color: #ffffff;
 }
